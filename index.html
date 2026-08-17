@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Alert</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08090d;
+  --card:#11131a;
+  --card2:#0d0f15;
+  --border:rgba(255,255,255,.09);
+  --text:#f5f7fb;
+  --muted:#9da3b2;
+  --accent:#ffb52e;
+  --accent2:#ff8a00;
+}
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,166,0,.10),transparent 35%),
+    radial-gradient(circle at 100% 100%,rgba(90,60,255,.07),transparent 30%),
+    var(--bg);
+}
+.alert-card{
+  width:100%;
+  max-width:460px;
+  position:relative;
+  overflow:hidden;
+  padding:34px 30px 30px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(20,22,30,.98),rgba(11,13,18,.98));
+  box-shadow:0 25px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.alert-card:before{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;
+  top:-110px;left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,170,30,.12);
+  filter:blur(45px);
+  border-radius:50%;
+}
+.icon-wrap{
+  width:78px;height:78px;
+  margin:0 auto 22px;
+  display:grid;
+  place-items:center;
+  border-radius:22px;
+  background:linear-gradient(145deg,rgba(255,181,46,.16),rgba(255,122,0,.06));
+  border:1px solid rgba(255,181,46,.22);
+  box-shadow:0 12px 35px rgba(255,145,0,.08);
+}
+.icon{
+  width:42px;height:42px;
+  color:var(--accent);
+  filter:drop-shadow(0 5px 15px rgba(255,166,0,.25));
+}
+h1{
+  font-size:25px;
+  line-height:1.25;
+  letter-spacing:-.5px;
+  margin-bottom:11px;
+}
+.description{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.65;
+  max-width:370px;
+  margin:0 auto 25px;
+}
+.details-btn{
+  width:100%;
+  border:0;
+  cursor:pointer;
+  color:#111;
+  font-size:15px;
+  font-weight:750;
+  padding:14px 20px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#ffc04a,#ff9718);
+  box-shadow:0 9px 25px rgba(255,153,24,.18);
+  transition:.2s ease;
+}
+.details-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 30px rgba(255,153,24,.27);
+}
+.details-btn:active{transform:translateY(0)}
+.details{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .35s ease,opacity .25s ease,margin .35s ease;
+}
+.details.open{
+  max-height:300px;
+  opacity:1;
+  margin-top:18px;
+}
+.details-inner{
+  padding:16px;
+  text-align:left;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
+  color:#b8bdc9;
+  font-size:13px;
+  line-height:1.65;
+}
+.lang-badge{
+  position:absolute;
+  top:16px;
+  right:16px;
+  font-size:10px;
+  font-weight:700;
+  color:#777e8e;
+  padding:5px 8px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+@media(max-width:480px){
+  .alert-card{padding:30px 21px 22px;border-radius:20px}
+  h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="alert-card">
+  <span class="lang-badge" id="langBadge">EN</span>
+
+  <div class="icon-wrap">
+    <svg class="icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path d="M24 5.5 43 40H5L24 5.5Z" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="M24 17v11" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="24" cy="34" r="2" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <h1 id="title">Content alert</h1>
+  <p class="description" id="description">
+    This content is available for limited users.
+  </p>
+
+  <button class="details-btn" id="detailsBtn" type="button">
+    See Details
+  </button>
+
+  <div class="details" id="details">
+    <div class="details-inner" id="detailsText">
+      Access to this content is currently limited to selected users.
+    </div>
+  </div>
+</div>
+
+<script>
+const translations = {
+  in: {
+    lang: "EN",
+    title: "Content alert",
+    description: "This content is available for limited users.",
+    button: "See Details",
+    details: "Access to this content is currently limited to selected users."
+  },
+  br: {
+    lang: "PT",
+    title: "Alerta de conteúdo",
+    description: "Este conteúdo está disponível para usuários limitados.",
+    button: "Ver detalhes",
+    details: "O acesso a este conteúdo está atualmente limitado a usuários selecionados."
+  }
+};
+
+// Reads ?country=in or ?country=br
+const country = new URLSearchParams(window.location.search)
+  .get("country")
+  ?.toLowerCase() || "in";
+
+const t = translations[country] || translations.in;
+
+document.documentElement.lang = country === "br" ? "pt-BR" : "en";
+document.getElementById("langBadge").textContent = t.lang;
+document.getElementById("title").textContent = t.title;
+document.getElementById("description").textContent = t.description;
+document.getElementById("detailsBtn").textContent = t.button;
+document.getElementById("detailsText").textContent = t.details;
+
+document.getElementById("detailsBtn").addEventListener("click", function(){
+  const box = document.getElementById("details");
+  box.classList.toggle("open");
+  this.textContent = box.classList.contains("open")
+    ? (country === "br" ? "Ocultar detalhes" : "Hide Details")
+    : t.button;
+});
+</script>
+
+</body>
+</html>
