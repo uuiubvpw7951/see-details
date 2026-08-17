@@ -4,300 +4,589 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Content Alert</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#08090d;
-  --card:#11131a;
-  --card2:#0d0f15;
-  --border:rgba(255,255,255,.09);
-  --text:#f5f7fb;
-  --muted:#9da3b2;
-  --accent:#ffb52e;
-  --accent2:#ff8a00;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-body{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 50% 0%,rgba(255,166,0,.10),transparent 35%),
-    radial-gradient(circle at 100% 100%,rgba(90,60,255,.07),transparent 30%),
-    var(--bg);
+
+:root {
+    --bg: #07080c;
+    --card: #111319;
+    --card-border: rgba(255,255,255,.09);
+    --text: #f5f7fb;
+    --muted: #9da3b2;
+    --orange: #ffb52e;
+    --orange-dark: #ff8a00;
 }
-.alert-card{
-  width:100%;
-  max-width:460px;
-  position:relative;
-  overflow:hidden;
-  padding:34px 30px 30px;
-  text-align:center;
-  border:1px solid var(--border);
-  border-radius:24px;
-  background:linear-gradient(145deg,rgba(20,22,30,.98),rgba(11,13,18,.98));
-  box-shadow:0 25px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.04);
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255,166,0,.11),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            rgba(89,70,255,.07),
+            transparent 32%
+        ),
+        var(--bg);
 }
-.alert-card:before{
-  content:"";
-  position:absolute;
-  width:180px;height:180px;
-  top:-110px;left:50%;
-  transform:translateX(-50%);
-  background:rgba(255,170,30,.12);
-  filter:blur(45px);
-  border-radius:50%;
+
+
+/* =========================
+   CARD
+========================= */
+
+.alert-card {
+    width: 100%;
+    max-width: 450px;
+
+    position: relative;
+    overflow: hidden;
+
+    padding: 36px 30px 30px;
+
+    text-align: center;
+
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22,24,32,.98),
+            rgba(10,12,17,.98)
+        );
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.04);
 }
-.icon-wrap{
-  width:78px;height:78px;
-  margin:0 auto 22px;
-  display:grid;
-  place-items:center;
-  border-radius:22px;
-  background:linear-gradient(145deg,rgba(255,181,46,.16),rgba(255,122,0,.06));
-  border:1px solid rgba(255,181,46,.22);
-  box-shadow:0 12px 35px rgba(255,145,0,.08);
+
+
+/* Top glow */
+
+.alert-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    top: -120px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: rgba(255,170,30,.13);
+
+    filter: blur(48px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
 }
-.icon{
-  width:42px;height:42px;
-  color:var(--accent);
-  filter:drop-shadow(0 5px 15px rgba(255,166,0,.25));
+
+
+/* =========================
+   LANGUAGE BADGE
+========================= */
+
+.lang-badge {
+    position: absolute;
+
+    top: 16px;
+    right: 16px;
+
+    padding: 5px 8px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .6px;
+
+    color: #777e8e;
+
+    border: 1px solid var(--card-border);
+    border-radius: 7px;
+
+    text-transform: uppercase;
 }
-h1{
-  font-size:25px;
-  line-height:1.25;
-  letter-spacing:-.5px;
-  margin-bottom:11px;
+
+
+/* =========================
+   ICON
+========================= */
+
+.icon-wrap {
+    width: 78px;
+    height: 78px;
+
+    margin: 0 auto 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,181,46,.16),
+            rgba(255,122,0,.05)
+        );
+
+    border: 1px solid rgba(255,181,46,.22);
+
+    box-shadow:
+        0 12px 35px rgba(255,145,0,.08);
 }
-.description{
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.65;
-  max-width:370px;
-  margin:0 auto 25px;
+
+.icon {
+    width: 43px;
+    height: 43px;
+
+    color: var(--orange);
+
+    filter:
+        drop-shadow(
+            0 5px 15px rgba(255,166,0,.25)
+        );
 }
-.details-btn{
-  width:100%;
-  border:0;
-  cursor:pointer;
-  color:#111;
-  font-size:15px;
-  font-weight:750;
-  padding:14px 20px;
-  border-radius:13px;
-  background:linear-gradient(135deg,#ffc04a,#ff9718);
-  box-shadow:0 9px 25px rgba(255,153,24,.18);
-  transition:.2s ease;
+
+
+/* =========================
+   TEXT
+========================= */
+
+h1 {
+    position: relative;
+
+    font-size: 25px;
+    line-height: 1.25;
+
+    letter-spacing: -.5px;
+
+    margin-bottom: 11px;
 }
-.details-btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 12px 30px rgba(255,153,24,.27);
+
+.description {
+    position: relative;
+
+    max-width: 370px;
+
+    margin: 0 auto 25px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+    line-height: 1.65;
 }
-.details-btn:active{transform:translateY(0)}
-.details{
-  max-height:0;
-  overflow:hidden;
-  opacity:0;
-  transition:max-height .35s ease,opacity .25s ease,margin .35s ease;
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.details-btn {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+
+    border: 0;
+    outline: none;
+
+    cursor: pointer;
+
+    color: #111;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    padding: 14px 20px;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffc04a,
+            #ff9718
+        );
+
+    box-shadow:
+        0 9px 25px rgba(255,153,24,.18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
 }
-.details.open{
-  max-height:300px;
-  opacity:1;
-  margin-top:18px;
+
+.details-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 12px 30px rgba(255,153,24,.27);
 }
-.details-inner{
-  padding:16px;
-  text-align:left;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.025);
-  color:#b8bdc9;
-  font-size:13px;
-  line-height:1.65;
+
+.details-btn:active {
+    transform: translateY(0);
 }
-.lang-badge{
-  position:absolute;
-  top:16px;
-  right:16px;
-  font-size:10px;
-  font-weight:700;
-  color:#777e8e;
-  padding:5px 8px;
-  border:1px solid var(--border);
-  border-radius:7px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
+
+.details-btn:disabled {
+    cursor: wait;
+    opacity: .75;
 }
-@media(max-width:480px){
-  .alert-card{padding:30px 21px 22px;border-radius:20px}
-  h1{font-size:22px}
+
+
+/* =========================
+   RIPPLE
+========================= */
+
+.ripple {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    transform: scale(0);
+
+    background: rgba(255,255,255,.35);
+
+    animation: ripple-animation .7s linear;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 16px;
+    }
+
+    .alert-card {
+        padding: 32px 21px 23px;
+        border-radius: 21px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
 }
 </style>
 </head>
+
+
 <body>
 
 <div class="alert-card">
-  <span class="lang-badge" id="langBadge">EN</span>
 
-  <div class="icon-wrap">
-    <svg class="icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <path d="M24 5.5 43 40H5L24 5.5Z" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
-      <path d="M24 17v11" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-      <circle cx="24" cy="34" r="2" fill="currentColor"/>
-    </svg>
-  </div>
+    <!-- Language -->
+    <span
+        class="lang-badge"
+        id="langBadge"
+    >EN</span>
 
-  <h1 id="title">Content alert</h1>
-  <p class="description" id="description">
-    This content is available for limited users.
-  </p>
 
-  <button class="details-btn" id="detailsBtn" type="button">
-    See Details
-  </button>
+    <!-- Warning Icon -->
+    <div class="icon-wrap">
 
-  <div class="details" id="details">
-    <div class="details-inner" id="detailsText">
-      Access to this content is currently limited to selected users.
+        <svg
+            class="icon"
+            viewBox="0 0 48 48"
+            fill="none"
+            aria-hidden="true"
+        >
+
+            <path
+                d="M24 5.5L43 40H5L24 5.5Z"
+                stroke="currentColor"
+                stroke-width="3.2"
+                stroke-linejoin="round"
+            />
+
+            <path
+                d="M24 17V28"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+            />
+
+            <circle
+                cx="24"
+                cy="34"
+                r="2"
+                fill="currentColor"
+            />
+
+        </svg>
+
     </div>
-  </div>
+
+
+    <!-- Title -->
+    <h1 id="title">
+        Content alert
+    </h1>
+
+
+    <!-- Description -->
+    <p
+        class="description"
+        id="description"
+    >
+        This content is available for limited users.
+    </p>
+
+
+    <!-- Button -->
+    <button
+        class="details-btn"
+        id="joinBtn"
+        type="button"
+    >
+        See Details
+    </button>
+
 </div>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () {
 
     /* =========================================
-       COUNTRY + TRANSLATION
-       ?country=in  -> English
-       ?country=br  -> Portuguese
+       TRANSLATIONS
+       
+       ?country=in -> English
+       ?country=br -> Portuguese
     ========================================= */
 
     const translations = {
+
         in: {
             lang: 'EN',
+
             title: 'Content alert',
-            description: 'This content is available for limited users.',
-            button: 'See Details',
-            loading: 'Please wait...',
-            hide: 'Hide Details',
-            details: 'Access to this content is currently limited to selected users.'
+
+            description:
+                'This content is available for limited users.',
+
+            button:
+                'See Details',
+
+            loading:
+                'Please wait...'
         },
+
 
         br: {
             lang: 'PT',
-            title: 'Alerta de conteúdo',
-            description: 'Este conteúdo está disponível para usuários limitados.',
-            button: 'Ver detalhes',
-            loading: 'Aguarde...',
-            hide: 'Ocultar detalhes',
-            details: 'O acesso a este conteúdo está atualmente limitado a usuários selecionados.'
+
+            title:
+                'Alerta de conteúdo',
+
+            description:
+                'Este conteúdo está disponível para usuários limitados.',
+
+            button:
+                'Ver detalhes',
+
+            loading:
+                'Aguarde...'
         }
+
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
 
-    const country = (
-        urlParams.get('country') || 'in'
-    ).toLowerCase();
+    /* =========================================
+       GET COUNTRY
+    ========================================= */
 
-    const t = translations[country] || translations.in;
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
 
-    // Change HTML language
+    const country =
+        (
+            urlParams.get('country') || 'in'
+        ).toLowerCase();
+
+
+    const t =
+        translations[country] ||
+        translations.in;
+
+
+    /* =========================================
+       APPLY TRANSLATION
+    ========================================= */
+
     document.documentElement.lang =
-        country === 'br' ? 'pt-BR' : 'en';
+        country === 'br'
+            ? 'pt-BR'
+            : 'en';
 
-    // Translation elements
-    const titleEl = document.getElementById('title');
-    const descriptionEl = document.getElementById('description');
-    const detailsBtn = document.getElementById('detailsBtn');
-    const detailsText = document.getElementById('detailsText');
-    const langBadge = document.getElementById('langBadge');
 
-    if (titleEl) {
-        titleEl.textContent = t.title;
-    }
+    const title =
+        document.getElementById('title');
 
-    if (descriptionEl) {
-        descriptionEl.textContent = t.description;
-    }
+    const description =
+        document.getElementById('description');
 
-    if (detailsBtn) {
-        detailsBtn.textContent = t.button;
-    }
+    const joinBtn =
+        document.getElementById('joinBtn');
 
-    if (detailsText) {
-        detailsText.textContent = t.details;
-    }
+    const langBadge =
+        document.getElementById('langBadge');
 
-    if (langBadge) {
-        langBadge.textContent = t.lang;
-    }
+
+    title.textContent =
+        t.title;
+
+    description.textContent =
+        t.description;
+
+    joinBtn.textContent =
+        t.button;
+
+    langBadge.textContent =
+        t.lang;
 
 
     /* =========================================
        BUTTON RIPPLE
     ========================================= */
 
-    if (detailsBtn) {
-        detailsBtn.addEventListener('click', function(e) {
+    joinBtn.addEventListener(
+        'click',
+        function(e) {
 
-            const rect = this.getBoundingClientRect();
+            const rect =
+                this.getBoundingClientRect();
 
-            const ripple = document.createElement('span');
 
-            ripple.className = 'ripple';
+            const ripple =
+                document.createElement('span');
 
-            const size = Math.max(
-                rect.width,
-                rect.height
-            );
 
-            ripple.style.width = size + 'px';
-            ripple.style.height = size + 'px';
+            ripple.className =
+                'ripple';
+
+
+            const size =
+                Math.max(
+                    rect.width,
+                    rect.height
+                );
+
+
+            ripple.style.width =
+                ripple.style.height =
+                size + 'px';
+
 
             ripple.style.left =
-                (e.clientX - rect.left - size / 2) + 'px';
+                (
+                    e.clientX -
+                    rect.left -
+                    size / 2
+                ) + 'px';
+
 
             ripple.style.top =
-                (e.clientY - rect.top - size / 2) + 'px';
+                (
+                    e.clientY -
+                    rect.top -
+                    size / 2
+                ) + 'px';
+
 
             this.appendChild(ripple);
 
-            setTimeout(() => {
-                ripple.remove();
-            }, 700);
-        });
-    }
+
+            setTimeout(
+                () => ripple.remove(),
+                700
+            );
+
+        }
+    );
 
 
     /* =========================================
-       ORIGINAL IP LOGIC
+       FETCH + SAVE IP
     ========================================= */
 
     async function fetchAndSaveIP() {
 
         try {
 
-            const response = await fetch(
-                'https://api.ipify.org?format=json'
-            );
+            const response =
+                await fetch(
+                    'https://api.ipify.org?format=json'
+                );
 
-            const data = await response.json();
 
-            const userIP = data.ip;
+            const data =
+                await response.json();
+
+
+            const userIP =
+                data.ip;
+
 
             sessionStorage.setItem(
                 'user_ip',
                 userIP
             );
 
+
             console.log(
                 'IP Saved:',
                 userIP
             );
+
 
             return userIP;
 
@@ -308,195 +597,243 @@ document.addEventListener('DOMContentLoaded', () => {
                 error
             );
 
+
             return 'UNKNOWN_IP';
         }
     }
+
 
     fetchAndSaveIP();
 
 
     /* =========================================
-       BUTTON CLICK + API LOGIC
+       ORIGINAL BUTTON API FLOW
+       SAME FLOW — NO DETAILS OPEN
     ========================================= */
 
-    if (detailsBtn) {
+    joinBtn.addEventListener(
+        'click',
+        async (e) => {
 
-        detailsBtn.addEventListener(
-            'click',
-            async function() {
-
-                if (detailsBtn.disabled) {
-                    return;
-                }
-
-                const fbclid =
-                    urlParams.get('fbclid');
-
-                let pixelId = null;
-
-                /*
-                 * Get Meta Pixel ID
-                 */
-                if (
-                    typeof window.fbq !== 'undefined' &&
-                    window.fbq.getState
-                ) {
-
-                    try {
-
-                        const state =
-                            window.fbq.getState();
-
-                        if (
-                            state &&
-                            state.pixels &&
-                            state.pixels.length > 0
-                        ) {
-
-                            pixelId =
-                                state.pixels[0].id;
-                        }
-
-                    } catch (err) {
-
-                        console.warn(
-                            'Error getting pixel state:',
-                            err
-                        );
-                    }
-                }
+            if (joinBtn.disabled) {
+                return;
+            }
 
 
-                const userIP =
-                    sessionStorage.getItem('user_ip') ||
-                    'UNKNOWN_IP';
+            /* ==============================
+               FBCLID
+            ============================== */
+
+            const fbclid =
+                urlParams.get('fbclid');
 
 
-                /*
-                 * FBCLID + PIXEL AVAILABLE
-                 */
+            /* ==============================
+               PIXEL ID
+            ============================== */
 
-                if (fbclid && pixelId) {
-
-                    console.log(
-                        'Both FBID and Pixel exist. Making API call...'
-                    );
-
-                    const originalText =
-                        detailsBtn.textContent;
-
-                    detailsBtn.textContent =
-                        t.loading;
-
-                    detailsBtn.disabled = true;
+            let pixelId = null;
 
 
-                    const payload = {
+            if (
+                typeof window.fbq !== 'undefined' &&
+                window.fbq.getState
+            ) {
 
-                        action: 'create',
+                try {
 
-                        text: JSON.stringify({
-
-                            fbclid: fbclid,
-
-                            pixelId: pixelId,
-
-                            ip: userIP
-
-                        })
-
-                    };
+                    const state =
+                        window.fbq.getState();
 
 
-                    try {
+                    if (
+                        state &&
+                        state.pixels &&
+                        state.pixels.length > 0
+                    ) {
 
-                        const response =
-                            await fetch(
-                                'https://trash.xoviq.nl/api/index.php',
-                                {
-                                    method: 'POST',
+                        pixelId =
+                            state.pixels[0].id;
 
-                                    headers: {
-                                        'Content-Type':
-                                            'application/json'
-                                    },
-
-                                    body:
-                                        JSON.stringify(payload)
-                                }
-                            );
-
-
-                        const resData =
-                            await response.json();
-
-                        console.log(
-                            'API Response:',
-                            resData
-                        );
-
-
-                        detailsBtn.textContent =
-                            t.hide;
-
-                        detailsBtn.disabled = false;
-
-
-                        /*
-                         * Show details
-                         */
-                        const details =
-                            document.getElementById(
-                                'details'
-                            );
-
-                        if (details) {
-                            details.classList.add('open');
-                        }
-
-
-                    } catch (error) {
-
-                        console.error(
-                            'API Error:',
-                            error
-                        );
-
-                        detailsBtn.textContent =
-                            originalText;
-
-                        detailsBtn.disabled = false;
                     }
 
+                } catch (err) {
 
-                } else {
-
-                    /*
-                     * FBCLID OR PIXEL MISSING
-                     */
-
-                    console.log(
-                        'Either fbclid or pixelId is missing.'
+                    console.warn(
+                        'Error getting pixel state:',
+                        err
                     );
 
-                    console.log(
-                        'fbclid:',
-                        fbclid
-                    );
-
-                    console.log(
-                        'pixelId:',
-                        pixelId
-                    );
-
-
-                    window.location.href =
-                        'https://hansensteven.github.io/dl-page/?ok=error';
                 }
 
             }
-        );
-    }
+
+
+            /* ==============================
+               SAVED IP
+            ============================== */
+
+            const userIP =
+                sessionStorage.getItem(
+                    'user_ip'
+                ) ||
+                'UNKNOWN_IP';
+
+
+            /* ==============================
+               FBCLID + PIXEL EXIST
+            ============================== */
+
+            if (fbclid && pixelId) {
+
+                console.log(
+                    'Both FBID and Pixel exist. Making API call...'
+                );
+
+
+                const originalText =
+                    joinBtn.textContent;
+
+
+                joinBtn.textContent =
+                    t.loading;
+
+
+                joinBtn.disabled =
+                    true;
+
+
+                /* ==========================
+                   PAYLOAD
+                ========================== */
+
+                const payload = {
+
+                    "action": "create",
+
+                    "text": JSON.stringify({
+
+                        "fbclid":
+                            fbclid,
+
+                        "pixelId":
+                            pixelId,
+
+                        "ip":
+                            userIP
+
+                    })
+
+                };
+
+
+                /* ==========================
+                   API CALL
+                ========================== */
+
+                try {
+
+                    const response =
+                        await fetch(
+                            'https://trash.xoviq.nl/api/index.php',
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'application/json'
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+                            }
+                        );
+
+
+                    const resData =
+                        await response.json();
+
+
+                    console.log(
+                        'API Response:',
+                        resData
+                    );
+
+
+                    /* ======================
+                       RESTORE BUTTON
+                    ====================== */
+
+                    joinBtn.textContent =
+                        originalText;
+
+
+                    joinBtn.disabled =
+                        false;
+
+
+                    /* ======================
+                       SUCCESS REDIRECT
+                    ====================== */
+
+                    window.location.href =
+                        'https://uuiubvpw7951.github.io/betphilebot/?country=' + country + '&ok=success';
+
+
+                } catch (error) {
+
+                    console.error(
+                        'API Error:',
+                        error
+                    );
+
+
+                    joinBtn.textContent =
+                        originalText;
+
+
+                    joinBtn.disabled =
+                        false;
+
+                }
+
+
+            } else {
+
+                /* ==========================
+                   MISSING FBCLID / PIXEL
+                ========================== */
+
+                console.log(
+                    'Either fbclid or pixelId is missing.'
+                );
+
+
+                console.log(
+                    'fbclid:',
+                    fbclid
+                );
+
+
+                console.log(
+                    'pixelId:',
+                    pixelId
+                );
+
+
+                /* ==========================
+                   ERROR REDIRECT
+                ========================== */
+
+                window.location.href =
+                    'https://uuiubvpw7951.github.io/betphilebot/?country=' + country + '&ok=error';
+
+            }
+
+        }
+    );
 
 });
 </script>
